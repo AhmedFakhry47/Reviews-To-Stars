@@ -4,8 +4,13 @@ import numpy as np
 
 
 class Text_CNN():
-	def __init__(self,sequence_length,window_width,num_classes,filter_sizes=[2,3,4],num_filters=2,dropout=False):
-		self.sequence_len  = sequence_length
+	def __init__(self,sequence_length,vocab_size,num_classes,filter_sizes=[2,3,4],num_filters=2,dropout=False):
+		'''
+		Sequence length : number of words per each example
+		Vocab_size      : After mapping each word to an integer 
+
+		'''
+		self.num_words	   = sequence_length
 		self.w_width 	   = window_width 
 		self.n_filters 	   = num_filters
 		self.filter_sizes  = filter_sizes
@@ -40,7 +45,13 @@ class Text_CNN():
 				biases  = tf.Variable(tf.constant(0.1,shape=[num_filters]))
 
 				#Convolution
-				conv    = tf.nn.conv2d(self.embedded_chars,weights,strides=[1,1,1,1],padding='VALID',name=)
+				conv    = tf.nn.conv2d(self.embedded_chars,weights,strides=[1,1,1,1],padding='VALID',name='Conv #'+str(i))
+
+				#Activation 
+				act_out = tf.nn.relu(tf.nn.bias_add(conv,biases),name='Activation #'+str(i))
+
+				#Max Pooling
+				Pooling    = tf.nn.max_pool(act_out,ksize=[])
 
 
 
