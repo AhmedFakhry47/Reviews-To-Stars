@@ -73,11 +73,3 @@ def load_data(dataname):
 
 	#data_x = pad_sentences(data_x)
 	return data_x,data_y
-
-
-'''
-vectorizer = CountVectorizer(lowercase=True,min_df=100)
-vectorizer.fit(dataset['Review'].to_list()) 
-data_X = vectorizer.transform(dataset['Review'].to_list())
-data_Y = np.array(dataset['Stars'])
-'''
