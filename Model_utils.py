@@ -4,7 +4,7 @@ import numpy as np
 
 
 class Text_CNN():
-	def __init__(self,sequence_length,vocab_size,num_classes,filter_sizes=[2,3,4],num_filters=2,dropout=False):
+	def __init__(self,sequence_length,window_width,vocab_size,num_classes,filter_sizes=[2,3,4],num_filters=2,dropout=False):
 		'''
 		Sequence length : number of words per each example
 		Vocab_size      : After mapping each word to an integer 

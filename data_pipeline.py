@@ -7,6 +7,7 @@ def preprocess(data_x,data_y,train_test_ratio=0.9):
     max_length      = max([len(text.split(" ")) for text in data_x])
     vocab_processor = learn.preprocessing.VocabularyProcessor(max_length)
     data_x          = np.array(list(vocab_processor.fit_transform(data_x)))
+    data_y          = np.array(data_y)
 
     # Randomly shuffle data
     np.random.seed(10)
@@ -39,7 +40,10 @@ def pipeline(batch_size,nbatchs,data,label):
             print('Done')
             yield None,None
             break
-        c_data  = data[i*batch_size:((i+1)*batch_size)].toarray()
-        c_label = hotkey(label[i*batch_size:((i+1)*batch_size)])
+        c_data  = data[i*batch_size:((i+1)*batch_size)]
+        c_label = label[i*batch_size:((i+1)*batch_size)]
+        
+        #c_data  = data[i*batch_size:((i+1)*batch_size)].toarray()
+        #c_label = hotkey(label[i*batch_size:((i+1)*batch_size)])
         yield c_data,c_label
         i+1
