@@ -24,7 +24,7 @@ class Text_CNN():
 		self.dropout_prob  = tf.placeholder(tf.float32,name='dropout probability')
 
 	#Dynamic model design based on the vocabulary dimension 
-	def _model(self,):
+	def model(self):
 		'''
 		The architecture sequence is as follows:
 		1-Embedding layer
@@ -73,7 +73,15 @@ class Text_CNN():
     		self.scores 	 = tf.nn.xw_plus_b(self.all_features, out_weights, out_biases, name='Output nodes')
     		self.predictions = tf.argmax(self.scores, 1, name='Output-Activated')
 
-    
+
+    def loss(self):	
+		losses 	  = tf.nn.softmax_cross_entropy_with_logits(self.scores, self.input_y)
+		self.loss = tf.reduce_mean(losses)
+
+	def acc(self):
+	    correct_predictions = tf.equal(self.predictions, tf.argmax(self.input_y, 1))
+    	self.accuracy = tf.reduce_mean(tf.cast(correct_predictions, tf.float32), name="accuracy")
+
 
 
 

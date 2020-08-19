@@ -58,7 +58,7 @@ def load_data(dataname):
 	Load data and vectorize the labels
 	'''
 	data_dir 	= navigate(dataname)
-	file 		= pd.read_csv('Data/data.csv',usecols=['Stars','Review'])
+	file 		= pd.read_csv(data_dir,usecols=['Stars','Review'])
 
 	data_x = []
 	data_y = []
