@@ -62,20 +62,18 @@ def load_data(dataname):
 
 	data_x = []
 	data_y = []
-	sent_lengths = []
 
 	for i in dataset['Stars'].unique():
 		current = dataset['Review'].loc[dataset['Stars']==i]
 		label   = int_to_label(i)
 		for current_x in current:
-			text = word_tokenize(text_flourish(current_x))
+			text = text_flourish(current_x)
 			data_x.append(text)
 			data_y.append(label)
-			sent_lengths.append(len(text))
 
-	data_x = pad_sentences(data_x)
-	return data_X,data_Y
-	
+	#data_x = pad_sentences(data_x)
+	return data_x,data_y
+
 
 '''
 vectorizer = CountVectorizer(lowercase=True,min_df=100)

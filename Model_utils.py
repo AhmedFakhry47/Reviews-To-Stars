@@ -8,13 +8,16 @@ class Text_CNN():
 		'''
 		Sequence length : number of words per each example
 		Vocab_size      : After mapping each word to an integer 
+		window width    : is the embedding size
 
 		'''
 		self.num_words	   = sequence_length
-		self.w_width 	   = window_width 
-		self.n_filters 	   = num_filters
-		self.filter_sizes  = filter_sizes
 		self.n_classes     = num_classes
+		self.vocab_size    = vocab_size
+		self.w_width 	   = window_width 
+		self.filter_sizes  = filter_sizes
+		self.n_filters 	   = num_filters
+		
 
 		self.input_x	   = tf.placeholder(tf.int32,[None,self.sequence_length],name='Word Vector')
 		self.input_y	   = tf.placeholder(tf.float32,[None,num_classes],name='Output')
@@ -31,8 +34,8 @@ class Text_CNN():
 
 		#First Block: Embedding Block
 		with tf.device('/cpu:0'),tf.name_scope('Embedding Layer'):
-			weights			    = tf.Variable(tf.random_uniform([self.w_width,self.w_height],-1.0,1.0),name='Gather-operation')
-			self.embedded_chars = tf.nn.embedding_lookup(weights,self.input_x)
+			embedded_weights	= tf.Variable(tf.random_uniform([self.vocab_size,self.w_width],-1.0,1.0),name='Gather-operation')
+			self.embedded_chars = tf.nn.embedding_lookup(embedded_weights,self.input_x)
 			self.embedded_chars = tf.expand_dims(self.embedded_chars,-1) #Output of embedding block
 
 		#Second Block: Convolution Block
