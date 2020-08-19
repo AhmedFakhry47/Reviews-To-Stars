@@ -1,4 +1,6 @@
 import numpy as np
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 #Create confusion matrix and evaluating the recall for each class
 conv_fun = lambda x : list(x).index(1)
@@ -9,15 +11,7 @@ def get_highest(arr):
     return temp
 
 
-def evaluate_acc_loss_on_devset(test_x,test_y):
-    #Evaluate loss 
-    devset_loss  = sess.run(loss,feed_dict={reviews:test_x,stars:test_y})
-    #Evaluate Test Acc 
-    preds   = sess.run(downhill,feed_dict={reviews:test_x,stars:test_y})
-    avg_rec = confusion(preds,test_y)
-    print('Test Acc :',avg_rec,' %')
-    return devset_loss,avg_rec
-    
+        
 def confusion(preds,gt):
     confusion_mat = np.zeros((preds.shape[1],preds.shape[1]))
     

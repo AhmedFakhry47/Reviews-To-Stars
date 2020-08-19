@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/enihcam/Downloads/github-repos/Reviews-To-Stars0/training_trial/ckpt"
+all_model_checkpoint_paths: "/home/enihcam/Downloads/github-repos/Reviews-To-Stars0/training_trial/ckpt"

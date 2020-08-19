@@ -40,7 +40,6 @@ class Text_CNN():
 			self.embedded_chars = tf.nn.embedding_lookup(embedded_weights,self.input_x)
 			self.embedded_chars = tf.expand_dims(self.embedded_chars,-1) #Output of embedding block
 
-		print(self.embedded_chars)
 		pooled_features=[]
 		#Second Block: Convolution Block
 		for i,filter_size in enumerate(self.filter_sizes):
@@ -65,21 +64,20 @@ class Text_CNN():
 		self.all_features = tf.concat(pooled_features,3)
 		self.all_features = tf.reshape(self.all_features,[-1,tot_nfilters])
 
-		print(self.all_features)
 	
-		with tf.name_scope("dropout"):
-			self.all_features =  tf.nn.dropout(self.all_features,self.dropout_prob)
+		#with tf.name_scope("dropout"):
+		#	self.all_features =  tf.nn.dropout(self.all_features,self.dropout_prob)
 
 		with tf.name_scope("Output"):
 			out_weights = tf.Variable(tf.truncated_normal([tot_nfilters , self.n_classes], stddev=0.1), name='Weights_of_output')
 			out_biases  = tf.Variable(tf.constant(0.1, shape=[self.n_classes]), name='Output_nodes')
 
-			print(self.input_x)
+		#	print(self.input_x)
 
 			self.scores 	 = tf.nn.xw_plus_b(self.all_features, out_weights, out_biases, name='Output_nodes')
 			self.predictions = tf.argmax(self.scores, 1, name='Output-Activated')
 
-		print(self.scores)
+		#print(self.scores)
 		with tf.name_scope("loss"):
 			losses 	  = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.input_y)
 			self.loss = tf.reduce_mean(losses)
