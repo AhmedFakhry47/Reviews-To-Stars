@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import math
 import os
+import re
 
 
 def int_to_label(number,base):
@@ -31,7 +32,7 @@ def text_flourish(string):
 	return string.strip().lower()
 
 
-def navigate(string):
+def navigate(dataname):
 	'''
 	-A function navigates through the current working directory
 	-Returns the first file that meets the conditions
@@ -58,14 +59,14 @@ def load_data(dataname):
 	Load data and vectorize the labels
 	'''
 	data_dir 	= navigate(dataname)
-	file 		= pd.read_csv(data_dir,usecols=['Stars','Review'])
+	dataset 	= pd.read_csv(data_dir,usecols=['Stars','Review'])
 
 	data_x = []
 	data_y = []
 
 	for i in dataset['Stars'].unique():
 		current = dataset['Review'].loc[dataset['Stars']==i]
-		label   = int_to_label(i)
+		label   = int_to_label(i,10)
 		for current_x in current:
 			text = text_flourish(current_x)
 			data_x.append(text)
