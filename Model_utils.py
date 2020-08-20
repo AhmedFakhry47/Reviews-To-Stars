@@ -73,10 +73,12 @@ class Text_CNN():
 			out_biases  = tf.Variable(tf.constant(0.1, shape=[self.n_classes]), name='Output_nodes')
 
 		#	print(self.input_x)
-
 			self.scores 	 = tf.nn.xw_plus_b(self.all_features, out_weights, out_biases, name='Output_nodes')
 			self.predictions = tf.argmax(self.scores, 1, name='Output-Activated')
 
+		with tf.name_scope("dropout"):
+			self.all_features =  tf.nn.dropout(self.all_features,self.dropout_prob)
+			
 		#print(self.scores)
 		with tf.name_scope("loss"):
 			losses 	  = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.input_y)

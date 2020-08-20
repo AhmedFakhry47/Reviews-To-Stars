@@ -59,13 +59,14 @@ def load_data(dataname):
 	Load data and vectorize the labels
 	'''
 	data_dir 	= navigate(dataname)
-	dataset 	= pd.read_csv(data_dir,usecols=['Stars','Review'])
+	#dataset 	= pd.read_csv(data_dir,usecols=['Stars','Review'])
+	dataset 	= pd.read_csv(data_dir,usecols=['Score','Text'],nrows=50000)
 
 	data_x = []
 	data_y = []
 
-	for i in dataset['Stars'].unique():
-		current = dataset['Review'].loc[dataset['Stars']==i]
+	for i in dataset['Score'].unique():
+		current = dataset['Text'].loc[dataset['Score']==i]
 		label   = int_to_label(i,10)
 		for current_x in current:
 			text = text_flourish(current_x)
