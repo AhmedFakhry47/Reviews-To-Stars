@@ -26,7 +26,7 @@ These parameters
 10
 '''
 max_length = 1870
-vocab_size = 37637
+vocab_size = 25886
 num_classes= 5
 
 def preprocess(data):
@@ -63,6 +63,6 @@ with tf.Session() as sess:
 	        data = values['-IN-']
 	        data = preprocess(data)
 	        predictions = sess.run([out.predictions],feed_dict={out.input_x:data,out.input_y:dummy_y,out.dropout_prob:1})
-	        window['-OUTPUT-'].update(str(predictions[0][0])+' of 5')
+	        window['-OUTPUT-'].update(str(predictions[0][0]+1)+' of 5')
 
 	window.close()
