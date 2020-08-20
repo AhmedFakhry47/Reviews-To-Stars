@@ -60,18 +60,36 @@ def load_data(dataname):
 	'''
 	data_dir 	= navigate(dataname)
 	#dataset 	= pd.read_csv(data_dir,usecols=['Stars','Review'])
-	dataset 	= pd.read_csv(data_dir,usecols=['Score','Text'],nrows=50000)
+	data    	= pd.read_csv(data_dir,usecols=['Score','Text'],nrows=50000)
+
+	'''
+	To solve class imbalance
+	'''
+	subset0     = dataset.loc[dataset['Score']==1].count()
+	subset1     = dataset.loc[dataset['Score']==2].count()
+	subset2     = dataset.loc[dataset['Score']==3].count()
+	subset3     = dataset.loc[dataset['Score']==4][:4047].count()
+	subset4     = dataset.loc[dataset['Score']==5][:4047].count()
+	
+	frames 		= [subset0,subset3,subset2,subset1,subset4]
+	concat 		= pd.concat(frames)
+	dataset 	= concat.sample(frac=1)
+
+	#Free memory
+	del subset4,subset3,subset2,subset1,subset0,frames,concat
 
 	data_x = []
 	data_y = []
-
+	
 	for i in dataset['Score'].unique():
 		current = dataset['Text'].loc[dataset['Score']==i]
-		label   = int_to_label(i,10)
+		label   = int_to_label(i,5)
 		for current_x in current:
 			text = text_flourish(current_x)
 			data_x.append(text)
 			data_y.append(label)
 
 	#data_x = pad_sentences(data_x)
+	
 	return data_x,data_y
+	

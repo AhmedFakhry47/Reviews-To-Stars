@@ -1,16 +1,18 @@
+import numpy as np
 import PySimpleGUI as sg
 import tensorflow  as tf
 from Model_utils import *
 from Load_Data import *
 from tensorflow.keras.preprocessing import text, sequence
 
+dummy_y = np.reshape(np.array([[1,0,0,0,0]]),(1,5	))
 sg.theme('BluePurple')
 
 layout = [[sg.Text('Number of stars:'), sg.Text(size=(15,1), key='-OUTPUT-')],
           [sg.Input(key='-IN-')],
           [sg.Button('Show'), sg.Button('Exit')]]
 
-window = sg.Window('Pattern 2B', layout)
+window = sg.Window('Reviews2Stars', layout)
 
 
 
@@ -25,7 +27,7 @@ These parameters
 '''
 max_length = 1870
 vocab_size = 37637
-num_classes= 10
+num_classes= 5
 
 def preprocess(data):
 	tokenizer = text.Tokenizer(num_words=vocab_size)
@@ -58,9 +60,9 @@ with tf.Session() as sess:
 	        break
 	    if event == 'Show':
 	        # Update the "output" text element to be the value of "input" element
-	        text = values['-IN-']
-	        text = preprocess(text)
-	        predictions = sess.run([out.predictions],feed_dict={out.input_x:text,out.input_y:1,out.dropout_prob:1})
-	        window['-OUTPUT-'].update(values['-IN-'])
+	        data = values['-IN-']
+	        data = preprocess(data)
+	        predictions = sess.run([out.predictions],feed_dict={out.input_x:data,out.input_y:dummy_y,out.dropout_prob:1})
+	        window['-OUTPUT-'].update(str(predictions[0][0])+' of 5')
 
 	window.close()
