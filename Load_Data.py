@@ -65,11 +65,11 @@ def load_data(dataname):
 	'''
 	To solve class imbalance
 	'''
-	subset0     = dataset.loc[dataset['Score']==1].count()
-	subset1     = dataset.loc[dataset['Score']==2].count()
-	subset2     = dataset.loc[dataset['Score']==3].count()
-	subset3     = dataset.loc[dataset['Score']==4][:4047].count()
-	subset4     = dataset.loc[dataset['Score']==5][:4047].count()
+	subset0     = data.loc[data['Score']==1].count()
+	subset1     = data.loc[data['Score']==2].count()
+	subset2     = data.loc[data['Score']==3].count()
+	subset3     = data.loc[data['Score']==4][:4047].count()
+	subset4     = data.loc[data['Score']==5][:4047].count()
 	
 	frames 		= [subset0,subset3,subset2,subset1,subset4]
 	concat 		= pd.concat(frames)
