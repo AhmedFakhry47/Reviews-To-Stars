@@ -22,5 +22,5 @@ My implementation of Kim Yoon’s Convolutional Neural Networks for Sentence Cla
 </ul>
 
 # Model Output
-![First] (https://github.com/AhmedFakhry47/Reviews-To-Stars/blob/master/Trial1.gif)
+![First](https://github.com/AhmedFakhry47/Reviews-To-Stars/blob/master/Trial1.gif)
 ![Second](https://github.com/AhmedFakhry47/Reviews-To-Stars/blob/master/Trial2.gif)
